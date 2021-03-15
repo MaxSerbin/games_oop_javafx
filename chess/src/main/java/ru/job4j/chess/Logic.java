@@ -14,15 +14,31 @@ public final class Logic {
 
     public void move(Cell source, Cell dest)
             throws FigureNotFoundException, ImpossibleMoveException, OccupiedCellException {
-        int index = findBy(source);
-        Cell[] steps = figures[index].way(dest);
-        free(steps);
-        figures[index] = figures[index].copy(dest);
+        int index = this.findBy(source);
+        if(index != -1) {
+            Cell[] steps = this.figures[index].way(dest);
+            this.free(steps);
+            if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
+                this.figures[index] = this.figures[index].copy(dest);
+
+            }
+        }
     }
 
     private boolean free(Cell[] steps) throws OccupiedCellException {
+        for(Cell a : steps) {
+            for(int i = 0; i < index; i++){
+                if(figures[i].position().equals(a)){
+                    throw new OccupiedCellException("OccupiedCellException");
+                }
+            }
+
+        }
         return true;
     }
+
+
+
 
     public void clean() {
         Arrays.fill(figures, null);
@@ -36,6 +52,6 @@ public final class Logic {
                 return index;
             }
         }
-        throw new FigureNotFoundException();
+        throw new FigureNotFoundException("Figure not found.");
     }
 }
