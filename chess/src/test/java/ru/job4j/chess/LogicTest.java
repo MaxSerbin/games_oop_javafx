@@ -17,41 +17,29 @@ public class LogicTest {
         logic.move(Cell.C1, Cell.G5);
     }
 
-    @Test
+    @Test(expected = ImpossibleMoveException.class)
     public void whenImpossibleMove()
             throws FigureNotFoundException, OccupiedCellException, ImpossibleMoveException {
         Logic logic = new Logic();
         logic.add(new BishopBlack(Cell.C1));
-        try {
-            logic.move(Cell.C1, Cell.G6);
-        } catch (ImpossibleMoveException e) {
-            System.out.println(e.getMessage());
-        }
+        logic.move(Cell.C1, Cell.G6);
     }
 
-    @Test
+    @Test(expected = FigureNotFoundException.class)
     public void whenNotFound()
             throws FigureNotFoundException, OccupiedCellException, ImpossibleMoveException {
         Logic logic = new Logic();
         logic.add(new BishopBlack(Cell.C1));
-        try {
-            logic.move(Cell.D2, Cell.G6);
-        } catch (FigureNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+        logic.move(Cell.D2, Cell.G6);
     }
 
-    @Test
+    @Test(expected = OccupiedCellException.class)
     public void whenOccupiedCell()
             throws FigureNotFoundException, OccupiedCellException, ImpossibleMoveException {
         Logic logic = new Logic();
         logic.add(new BishopBlack(Cell.C1));
         logic.add(new PawnBlack(Cell.D2));
-        try {
-            logic.move(Cell.C1, Cell.H6);
-        } catch (OccupiedCellException e) {
-            System.out.println(e.getMessage());
-        }
+        logic.move(Cell.C1, Cell.H6);
 
     }
 }
